@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MilkMarket — Sữa tươi mỗi ngày</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --cream: #FBF7EF;
+    --cream-deep: #F3EBDC;
+    --forest: #2E5339;
+    --forest-deep: #203C29;
+    --butter: #E8A33D;
+    --butter-deep: #C77F1F;
+    --cocoa: #4A3728;
+    --line: #E1D8C4;
+    --white: #FFFFFF;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--cocoa);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+  }
+  h1,h2,h3,.brand{
+    font-family: 'Fraunces', serif;
+    color: var(--forest-deep);
+    margin: 0;
+  }
+  a{ color: inherit; text-decoration: none; }
+  img{ max-width:100%; display:block; }
+
+  
+  /* ---------- NAVBAR ---------- */
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 18px 6vw;
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top:0;
+    z-index: 20;
+  }
+  .brand{
+    font-size: 1.5rem;
+    font-weight: 600;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand .dot{
+    width: 12px; height:12px; border-radius:50%;
+    background: var(--butter);
+    display:inline-block;
+  }
+  .nav-links{
+    display:flex;
+    gap: 2.2rem;
+    font-size: 0.98rem;
+    font-weight: 500;
+  }
+  .nav-links a{
+    position:relative;
+    padding: 4px 0;
+    color: var(--cocoa);
+  }
+  .nav-links a:hover{ color: var(--forest); }
+  .nav-links a.active{ color: var(--forest); }
+  .nav-links a.active::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-4px;
+    height:2px;
+    background: var(--butter);
+    border-radius: 2px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 4.5rem 6vw 3rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-text h1{
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    font-weight: 600;
+    max-width: 14ch;
+    line-height: 1.15;
+  }
+  .hero-text p{
+    max-width: 46ch;
+    margin-top: 1rem;
+    color: #6b5c4c;
+    font-size: 1.05rem;
+  }
+  .hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background: var(--cream-deep);
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--forest-deep);
+    margin-bottom: 1.2rem;
+  }
+  .hero-badge .dot{
+    width:7px;height:7px;border-radius:50%;
+    background: var(--forest);
+  }
+  .hero-visual{
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, var(--cream-deep) 55%, var(--line) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+  }
+  .hero-visual svg{ width: 62%; }
+
+  /* ---------- FILTERS ---------- */
+  .filters-section{
+    padding: 0 6vw 2.5rem;
+  }
+  .filters-section h2{
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .filter-box{
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.3rem 1.5rem 1.5rem;
+    max-width: 640px;
+  }
+  .filter-group{
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .filter-group:last-child{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+  .filter-label{
+    font-size: 0.82rem;
+    color: #8a7a66;
+    margin-bottom: 0.7rem;
+    display:block;
+  }
+  .pill-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 0.6rem;
+  }
+  .pill{
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--cocoa);
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+  .pill:hover{
+    border-color: var(--forest);
+    color: var(--forest-deep);
+  }
+  .pill.is-selected{
+    background: var(--forest);
+    border-color: var(--forest);
+    color: var(--white);
+  }
+
+  /* ---------- PRODUCT SECTION ---------- */
+  .product-section{
+    padding: 1rem 6vw 4rem;
+  }
+  .product-section h2{
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1.3rem;
+  }
+
+  .product-card{
+    max-width: 300px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(74,55,40,0.03);
+  }
+  .card-media{
+    background: var(--cream-deep);
+    padding: 1.8rem 1.5rem 1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position: relative;
+  }
+  .card-media .tag{
+    position:absolute;
+    top: 12px; left:12px;
+    background: var(--forest);
+    color:#fff;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .card-body{
+    padding: 1.2rem 1.4rem 1.4rem;
+  }
+  .card-brand{
+    font-size: 0.78rem;
+    color: var(--butter-deep);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .card-title{
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--forest-deep);
+    margin-bottom: 6px;
+  }
+  .card-desc{
+    font-size: 0.88rem;
+    color: #7a6c5a;
+    margin-bottom: 0.9rem;
+  }
+  .card-price-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom: 1.1rem;
+  }
+  .card-price{
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cocoa);
+  }
+  .card-price span{
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #9a8c78;
+    margin-left: 3px;
+  }
+  .card-actions{
+    display:flex;
+    gap: 0.6rem;
+  }
+  .btn{
+    flex:1;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s ease, opacity 0.15s ease;
+  }
+  .btn-primary{
+    background: var(--forest);
+    color: #fff;
+  }
+  .btn-primary:hover{ background: var(--forest-deep); }
+  .btn-outline{
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--cocoa);
+  }
+  .btn-outline:hover{ border-color: var(--cocoa); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background: var(--forest-deep);
+    color: #E9E4D8;
+    padding: 3rem 6vw 2rem;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .footer-grid h3{
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+  .footer-brand{
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 0.7rem;
+  }
+  .footer-grid p{
+    font-size: 0.88rem;
+    color: #C9C2B4;
+    max-width: 32ch;
+  }
+  .footer-links{
+    list-style:none;
+    padding:0; margin:0;
+    display:flex;
+    flex-direction:column;
+    gap: 0.6rem;
+  }
+  .footer-links a{
+    font-size: 0.9rem;
+    color: #C9C2B4;
+  }
+  .footer-links a:hover{ color: #fff; }
+  .footer-contact p{
+    font-size: 0.9rem;
+    color: #C9C2B4;
+    margin: 0 0 0.5rem;
+  }
+  .footer-bottom{
+    padding-top: 1.4rem;
+    font-size: 0.8rem;
+    color: #8f8a7d;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 720px){
+    .navbar{ padding: 16px 5vw; flex-wrap: wrap; gap: 10px; }
+    .nav-links{ gap: 1.2rem; font-size: 0.9rem; }
+    .hero{ padding: 2.5rem 5vw 2rem; }
+    .hero-visual{ width: 180px; height:180px; }
+    .filters-section, .product-section{ padding-left: 5vw; padding-right: 5vw; }
+    .filter-box{ padding: 1.1rem 1.2rem 1.3rem; max-width: none; }
+    .footer-grid{ grid-template-columns: 1fr; gap: 1.6rem; }
+  }
+</style>
+</head>
+<body >
+
+  
+  <!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <a href="index.html" class="brand">
+    <img src="Milkmarket.png" alt="MilkMarket Logo" class="logo-img">
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Trang chủ</a>
+    <a href="cart.html">Giỏ hàng</a>
+    <a href="about.html">Về chúng tôi</a>
+    <a href="SignUp.html" id="nav-auth">Đăng ký</a>
+    <a href="#" id="nav-logout" class="nav-logout" hidden>Đăng xuất</a> 
+  </div>
+</nav>
+
+
+
+<!-- ================= HERO + ĐĂNG NHẬP ================= -->
+<section class="hero-login">
+
+  <form class="login-card" id="login-form" action="#">
+    <h2>Đăng nhập</h2>
+    <p class="login-sub">Đăng nhập để mua sắm nhanh hơn.</p>
+
+    <div class="login-field">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" placeholder="KhoaDa@example.com" required>
+    </div>
+
+    <div class="login-field">
+      <label for="mat-khau">Mật khẩu</label>
+      <input type="password" id="mat-khau" name="mat-khau" placeholder="Nhập mật khẩu" required>
+    </div>
+ <p id="thong-bao-dang-nhap" class="login-alert"></p>
+
+    <button type="submit" class="btn-login">Đăng nhập</button>
+    <p class="login-switch">Chưa có tài khoản? <a href="SignUp.html">Đăng ký</a></p>
+  </form>
+
+  <div class="hero-login-text">
+    
+    <h1>Ronaldo đã uống sữa, tại sao bạn vẫn chưa?</h1>
+    
+  </div>
+
+</section>
+
+
+
+  <!-- ================= PRODUCT (card) ================= -->
+<main class="home-main">
+
+  <!-- ===== KHUYẾN MÃI ===== -->
+  <section class="product-section sale-section" id="khuyen-mai">
+    <div class="section-head sale-head">
+      <h2>Khuyến mãi hôm nay</h2>
+      <p id="sale-note">Đẳng cấp của sữa </p>
+    </div>
+    <div class="product-list" id="sale-list"></div>
+  </section>
+
+  <!-- ===== BÁN CHẠY ===== -->
+  <section class="product-section alt" id="ban-chay">
+    <div class="section-head">
+      <h2>Sản phẩm bán chạy</h2>
+    </div>
+    <div class="product-list" id="hot-list"></div>
+  </section>
+
+  <!-- ===== HÀNG MỚI ===== -->
+  <section class="product-section" id="hang-moi">
+    <div class="section-head">
+      <h2>Hàng mới về</h2>
+    </div>
+    <div class="product-list" id="new-list"></div>
+  </section>
+
+  <div class="view-all-wrap">
+    <button class="btn-view-all" type="button" onclick="window.location.href='allproducts.html'">Xem tất cả sản phẩm</button>
+  </div>
+
+</main>
+
+<!-- ================= ĐÁNH GIÁ KHÁCH HÀNG ================= -->
+<section class="review-section" id="danh-gia">
+  <div class="section-head">
+    <h2>Khách hàng đánh giá về MilkMarket</h2>
+    <p>Những đánh giá thật từ khách hàng của chúng tôi</p>
+  </div>
+  <div class="review-marquee">
+    <div class="review-track" id="review-track"></div>
+  </div>
+</section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">milkmarket</div>
+        <p>Nơi tổng hợp các dòng sữa tươi, sữa bột chính hãng — chọn nhanh, mua tiện, giá minh bạch.</p>
+      </div>
+      <div>
+        <h3>Điều hướng</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="cart.html">Giỏ hàng</a></li>
+          <li><a href="about.html">Về chúng tôi</a></li>
+          <li><a href="#">Chính sách đổi trả</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Liên hệ</h3>
+        <p>Địa chỉ: ____________________</p>
+        <p>Hotline: ____________________</p>
+        <p>Email: ____________________</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 milkmarket</span>
+      <span>Demo giao diện — chưa tích hợp chức năng</span>
+    </div>
+  </footer>
+<script src="data.js"></script>
+<script src="cart.js"></script>
+<script src="home.js"></script>
+<script src="Login.html"></script>
+</body>
+</html> 

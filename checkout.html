@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanh toán — MilkMarket</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --cream:#FBF7EF; --cream-deep:#F3EBDC;
+    --forest:#2E5339; --forest-deep:#203C29;
+    --butter:#E8A33D; --butter-deep:#C77F1F;
+    --cocoa:#4A3728; --line:#E1D8C4; --white:#FFFFFF;
+    --error:#a4483b;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--cream); color:var(--cocoa); font-family:'Inter',sans-serif; line-height:1.55; }
+  h1,h2,h3,.brand{ font-family:'Fraunces',serif; color:var(--forest-deep); margin:0; }
+  a{ color:inherit; text-decoration:none; }
+
+  .navbar{ display:flex; align-items:center; justify-content:space-between; padding:18px 6vw; background:var(--white); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20; }
+  .brand{ font-size:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px; }
+  .brand .dot{ width:12px; height:12px; border-radius:50%; background:var(--butter); display:inline-block; }
+  .nav-links{ display:flex; gap:2.2rem; font-size:0.98rem; font-weight:500; }
+  .nav-links a{ color:var(--cocoa); position:relative; padding:4px 0; }
+  .nav-links a:hover{ color:var(--forest); }
+
+  .page-head{ padding:2.4rem 6vw 0.5rem; }
+  .page-head p{ color:#8a7a66; font-size:0.92rem; margin-top:0.4rem; }
+
+  .cart-wrap{ display:flex; gap:2.5rem; padding:1.6rem 6vw 4rem; align-items:flex-start; flex-wrap:wrap; }
+
+  /* ---------- FORM ---------- */
+  .checkout-form{
+    flex:2 1 480px; background:var(--white); border:1px solid var(--line);
+    border-radius:14px; padding:1.6rem 1.8rem 1.8rem;
+  }
+  .checkout-form h3{ font-size:1.05rem; margin-bottom:1.2rem; }
+  .field{ margin-bottom:1.1rem; }
+  .field label, .field .label{ display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .field .opt{ font-weight:400; color:#9a8c78; }
+  .field input[type="text"], .field input[type="tel"], .field textarea{
+    width:100%; padding:11px 14px; font:inherit; font-size:0.95rem; color:var(--cocoa);
+    background:var(--cream); border:1px solid var(--line); border-radius:8px;
+  }
+  .field textarea{ resize:vertical; min-height:80px; }
+  .field input:focus, .field textarea:focus{ outline:2px solid var(--butter); outline-offset:1px; border-color:var(--butter); }
+  .field .has-error{ border-color:var(--error); }
+  .error-msg{ display:block; min-height:1.1em; font-size:0.8rem; color:var(--error); margin-top:4px; }
+
+  .pay-option{
+    display:flex; align-items:center; gap:10px; padding:12px 14px; margin-bottom:8px;
+    border:1px solid var(--line); border-radius:8px; cursor:pointer; font-size:0.92rem;
+  }
+  .pay-option:has(input:checked){ border-color:var(--forest); background:var(--cream); }
+  .pay-option input{ accent-color:var(--forest); }
+
+  .btn-checkout{
+    width:100%; padding:13px 0; border-radius:8px; background:var(--forest); color:#fff;
+    font-weight:600; font-size:0.95rem; border:none; cursor:pointer; margin-top:1.2rem; font-family:inherit;
+  }
+  .btn-checkout:hover{ background:var(--forest-deep); }
+
+  /* ---------- SUMMARY ---------- */
+  .cart-summary{
+    flex:1 1 280px; background:var(--white); border:1px solid var(--line);
+    border-radius:14px; padding:1.5rem 1.6rem; position:sticky; top:100px;
+  }
+  .cart-summary h3{ font-size:1.05rem; margin-bottom:1rem; }
+  .summary-row{ display:flex; justify-content:space-between; gap:1rem; font-size:0.92rem; color:#6b5c4c; padding:8px 0; }
+  .summary-row.total{ border-top:1px solid var(--line); margin-top:0.6rem; padding-top:1rem; font-weight:700; color:var(--cocoa); font-size:1.05rem; }
+  .items-box{ border-bottom:1px solid var(--line); padding-bottom:0.5rem; margin-bottom:0.5rem; }
+  .back-link{ display:inline-block; margin-top:1rem; font-size:0.88rem; color:var(--forest); font-weight:600; }
+
+  /* ---------- EMPTY / SUCCESS ---------- */
+  .state-box{
+    display:none; max-width:520px; margin:3rem 6vw 5rem; background:var(--white);
+    border:1px solid var(--line); border-radius:14px; padding:2rem 2rem 2.2rem;
+  }
+  .state-box h2{ font-size:1.5rem; margin-bottom:0.6rem; }
+  .state-box p{ color:#6b5c4c; margin:0 0 0.6rem; }
+  .state-box strong{ color:var(--cocoa); }
+  .btn-link{
+    display:inline-block; margin-top:1rem; padding:11px 26px; border-radius:8px;
+    background:var(--forest); color:#fff; font-weight:600; font-size:0.92rem;
+  }
+  .btn-link:hover{ background:var(--forest-deep); }
+
+  footer{ background:var(--forest-deep); color:#E9E4D8; padding:3rem 6vw 2rem; }
+  .footer-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:2rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.12); }
+  .footer-grid h3{ color:#fff; font-size:1rem; margin-bottom:1rem; font-family:'Inter',sans-serif; font-weight:600; }
+  .footer-brand{ font-family:'Fraunces',serif; font-size:1.3rem; color:#fff; margin-bottom:0.7rem; }
+  .footer-grid p{ font-size:0.88rem; color:#C9C2B4; max-width:32ch; }
+  .footer-links{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem; }
+  .footer-links a{ font-size:0.9rem; color:#C9C2B4; }
+  .footer-links a:hover{ color:#fff; }
+  .footer-contact p{ font-size:0.9rem; color:#C9C2B4; margin:0 0 0.5rem; }
+  .footer-bottom{ padding-top:1.4rem; font-size:0.8rem; color:#8f8a7d; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; }
+
+  @media (max-width:720px){
+    .navbar{ padding:16px 5vw; }
+    .nav-links{ gap:1.2rem; font-size:0.9rem; }
+    .page-head{ padding:2rem 5vw 0.3rem; }
+    .cart-wrap{ padding:1.4rem 5vw 3rem; gap:1.6rem; }
+    .checkout-form{ padding:1.3rem 1.2rem 1.5rem; }
+    .cart-summary{ position:static; }
+    .state-box{ margin:2rem 5vw 3rem; }
+    .footer-grid{ grid-template-columns:1fr; gap:1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="brand"><span class="dot"></span>milkmarket</a>
+    <div class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="cart.html">Giỏ hàng</a>
+      <a href="about.html">Về chúng tôi</a>
+    </div>
+  </nav>
+
+  <div class="page-head" id="page-head">
+    <h1>Thanh toán</h1>
+    <p>Điền thông tin nhận hàng để hoàn tất đơn.</p>
+  </div>
+
+  <section class="cart-wrap" id="checkout-main">
+    <form class="checkout-form" id="checkout-form" novalidate>
+      <h3>Thông tin nhận hàng</h3>
+
+      <div class="field">
+        <label for="ho-ten">Họ và tên</label>
+        <input type="text" id="ho-ten" autocomplete="name" placeholder="Nguyễn Văn A">
+        <span class="error-msg" id="loi-ho-ten"></span>
+      </div>
+
+      <div class="field">
+        <label for="sdt">Số điện thoại</label>
+        <input type="tel" id="sdt" autocomplete="tel" placeholder="0901234567">
+        <span class="error-msg" id="loi-sdt"></span>
+      </div>
+
+      <div class="field">
+        <label for="dia-chi">Địa chỉ giao hàng</label>
+        <input type="text" id="dia-chi" autocomplete="street-address" placeholder="Số nhà, đường, phường, quận">
+        <span class="error-msg" id="loi-dia-chi"></span>
+      </div>
+
+      <div class="field">
+        <label for="ghi-chu">Ghi chú <span class="opt">(không bắt buộc)</span></label>
+        <textarea id="ghi-chu" placeholder="Ví dụ: giao giờ hành chính"></textarea>
+      </div>
+
+      <div class="field">
+        <span class="label">Phương thức thanh toán</span>
+        <label class="pay-option"><input type="radio" name="pttt" value="Thanh toán khi nhận hàng" checked> Thanh toán khi nhận hàng</label>
+        <label class="pay-option"><input type="radio" name="pttt" value="Chuyển khoản ngân hàng"> Chuyển khoản ngân hàng</label>
+      </div>
+
+      <button class="btn-checkout" type="submit">Đặt hàng</button>
+    </form>
+
+    <aside class="cart-summary">
+      <h3>Đơn hàng của bạn</h3>
+      <div class="items-box" id="order-items"></div>
+      <div class="summary-row"><span>Tạm tính</span><span id="tam-tinh">0đ</span></div>
+      <div class="summary-row"><span>Phí giao hàng</span><span id="phi-ship">0đ</span></div>
+      <div class="summary-row total"><span>Tổng cộng</span><span id="tong-cong">0đ</span></div>
+      <a class="back-link" href="cart.html">← Quay lại giỏ hàng</a>
+    </aside>
+  </section>
+
+  <!-- Giỏ trống -->
+  <div class="state-box" id="empty-box">
+    <h2>Giỏ hàng đang trống</h2>
+    <p>Chọn vài sản phẩm trước khi thanh toán nhé.</p>
+    <a class="btn-link" href="allproducts.html">Xem sản phẩm</a>
+  </div>
+
+  <!-- Đặt hàng thành công -->
+  <div class="state-box" id="success-box">
+    <h2>Đặt hàng thành công</h2>
+    <p>Mã đơn: <strong id="ma-don"></strong></p>
+    <p>Tổng thanh toán: <strong id="tong-don"></strong></p>
+    <p>Chúng tôi sẽ gọi xác nhận đơn qua số điện thoại bạn đã nhập.</p>
+    <a class="btn-link" href="index.html">Tiếp tục mua sắm</a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">milkmarket</div>
+        <p>Nơi tổng hợp các dòng sữa tươi, sữa bột chính hãng — chọn nhanh, mua tiện, giá minh bạch.</p>
+      </div>
+      <div>
+        <h3>Điều hướng</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="cart.html">Giỏ hàng</a></li>
+          <li><a href="about.html">Về chúng tôi</a></li>
+          <li><a href="#">Chính sách đổi trả</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Liên hệ</h3>
+        <p>Địa chỉ: ____________________</p>
+        <p>Hotline: ____________________</p>
+        <p>Email: ____________________</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 milkmarket</span>
+      <span>Demo giao diện — chưa tích hợp chức năng</span>
+    </div>
+  </footer>
+
+<script src="checkout.js"></script>
+</body>
+</html>

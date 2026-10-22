@@ -1,0 +1,425 @@
+/* style.css — layout cho danh sách sản phẩm hiển thị ngang, có khoảng cách (gap) */
+/* ===== Cấu hình Logo trong Navbar ===== */
+/* ===== Cấu hình Logo trong Navbar ===== */
+.navbar {
+  overflow: visible;     /* Cho phép logo hiển thị tự nhiên, không bị bó buộc chiều cao */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.brand .logo-img {
+  height: 94px;          /* Tăng chiều cao logo vừa vặn, đẹp mắt trên thanh navbar */
+  width: auto;           /* Tự động co giãn theo tỷ lệ thực tế của ảnh logo */
+  object-fit: contain;
+  display: block;
+  max-height: none;      
+}
+.product-list{
+  display: flex;
+  flex-wrap: wrap;      /* hết chỗ thì tự xuống dòng, không tràn ngang vô hạn */
+  gap: 1.4rem;           /* khoảng cách đều giữa các card, cả chiều ngang lẫn dọc */
+}
+
+.product-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
+  gap: 1.4rem;
+  justify-content: start;   /* các card căn từ trái qua, hàng cuối không bị giãn to lấp đầy */
+}
+
+/* Nút "Xem tất cả sản phẩm" - căn giữa bên dưới danh sách sản phẩm */
+.view-all-wrap{
+  display: flex;
+  justify-content: center;   /* căn nút vào giữa theo chiều ngang */
+  margin-top: 2rem;
+}
+
+.btn-view-all{
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: 1px solid var(--forest);
+  background: transparent;
+  color: var(--forest);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-view-all:hover{
+  background: var(--forest);
+  color: #fff;
+}
+/* ===== Card: bố cục để nút luôn thẳng hàng ===== */
+.product-card{
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(74, 55, 40, 0.12);
+}
+.card-body{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card-price-row{
+  margin-top: auto;   /* đẩy giá + nút xuống đáy card */
+  padding-top: 0.4rem;
+}
+
+/* ===== Ảnh sản phẩm trong card ===== */
+.card-media{
+  height: 220px;              /* mọi ảnh cùng một khung */
+  padding: 1.2rem;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #ffffff 0%, var(--cream-deep) 75%);
+}
+.card-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        /* giữ nguyên tỉ lệ, không méo */
+  mix-blend-mode: multiply;   /* nền trắng của ảnh hoà vào nền kem */
+  filter: drop-shadow(0 6px 8px rgba(74, 55, 40, 0.15));
+  transition: transform 0.3s ease;
+}
+.product-card:hover .card-media img{
+  transform: scale(1.07);
+}
+
+/* ===== Ảnh ở trang chi tiết ===== */
+.detail-media img{
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 8px 12px rgba(74, 55, 40, 0.18));
+}
+/* Giá gốc gạch ngang */
+.gia-cu{
+  font-size: 0.85rem;
+  color: #9a8c78;
+  text-decoration: line-through;
+}
+
+/* Nhãn giảm giá màu cam */
+.card-media .tag.tag-sale{
+  background: var(--butter-deep);
+}
+
+/* Section khuyến mãi */
+.sale-section{
+  background: var(--cream-deep);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding-top: 2rem;
+}
+/* =====================================================
+   HERO: banner ảnh, form đăng nhập nằm bên trái trong banner
+   ===================================================== */
+.hero-login{
+  display: grid;
+grid-template-columns: minmax(380px, 640px) 1fr; /* form trái | chữ phải */
+  gap: 3.5rem;
+  align-items: center;
+  min-height: 980px;                                /* ❌ 480px → ✅ 680px: banner dài ra để thấy toàn cảnh */
+  padding: 3rem 6vw;
+  background-image:
+    /* tối bên trái (chỗ form + chữ), trong suốt dần sang phải để lộ Ronaldo */
+    linear-gradient(90deg, rgba(32,60,41,.88) 0%, rgba(32,60,41,.55) 45%, rgba(32,60,41,0) 75%),
+    url("https://www.whoa.in/download/cristiano-ronaldo-drinking-milk");
+  background-size: cover;
+  background-position: 75% 0%;                      /* ❌ 75% 15% → ✅ 75% 0%: bám mép trên, không cắt mặt */
+  background-repeat: no-repeat;
+  border-bottom: 1px solid var(--line);
+}
+/* ----- Form (trái): kiểu kính mờ, nổi trên ảnh ----- */
+.login-card{
+  background: rgba(251,247,239,.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 24px;
+  padding: 3.5rem 4rem;                             /* ❌ 5rem → ✅ 3.5rem 4rem: đỡ quá dày, form vẫn to */
+  box-shadow: 0 18px 40px rgba(0,0,0,.28);
+}
+.login-card h2{ font-size: 2rem; font-weight: 600; margin-bottom: .4rem; }
+.login-sub{ color: #8a7a66; font-size: 1rem; margin: 0 0 1.8rem; }
+
+.login-field{ margin-bottom: 1.3rem; }
+.login-field label{ display: block; font-size: .95rem; font-weight: 600; margin-bottom: 8px; }
+.login-field input{
+  width: 100%; padding: 16px 18px; font: inherit; font-size: 1.05rem; color: var(--cocoa);
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  transition: border-color .15s, box-shadow .15s;
+}
+.login-field input::placeholder{ color: #b3a690; }
+.login-field input:focus{
+  outline: none; border-color: var(--butter);
+  box-shadow: 0 0 0 3px rgba(232,163,61,.25);
+}
+
+.btn-login{
+  width: 100%; padding: 16px 0; border: none; border-radius: 12px; cursor: pointer;
+  background: var(--forest); color: #fff; font: inherit; font-weight: 600; font-size: 1.05rem;
+  margin-top: .5rem; transition: background .15s, transform .1s;
+}
+.btn-login:hover{ background: var(--forest-deep); }
+.btn-login:active{ transform: translateY(1px); }
+
+.login-switch{ text-align: center; font-size: .95rem; color: #8a7a66; margin: 1.2rem 0 0; }
+.login-switch a{ color: var(--forest); font-weight: 600; border-bottom: 1px solid var(--butter); }
+.login-switch a:hover{ color: var(--butter-deep); }
+/* ----- Nội dung giới thiệu (phải): chữ trắng trên ảnh ----- */
+.hero-login-text h1{
+  color: #fff;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  line-height: 1.15; font-weight: 600; max-width: 18ch;
+  text-shadow: 0 2px 12px rgba(0,0,0,.35);
+}
+.hero-login-text p{
+  color: rgba(255,255,255,.9);
+  font-size: 1rem; max-width: 50ch; margin: .9rem 0 0;
+}
+.hero-login .hero-badge{ background: rgba(255,255,255,.95); }
+
+.hero-points{ list-style: none; padding: 0; margin: 1.3rem 0 0; display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; }
+.hero-points li{ display: flex; align-items: center; gap: .5rem; font-size: .88rem; color: #fff; }
+.hero-points li::before{
+  content: "✓"; width: 19px; height: 19px; border-radius: 50%; flex-shrink: 0;
+  background: var(--butter); color: var(--forest-deep); font-size: .7rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* =====================================================
+   TIÊU ĐỀ SECTION (dùng chung cho cả 3 section)
+   ===================================================== */
+.section-head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.3rem;
+}
+.product-section .section-head h2{ margin: 0; }   /* bỏ margin-bottom cũ của h2 */
+
+/* Section khuyến mãi */
+.sale-section{
+  background: var(--cream-deep);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding-top: 2.2rem;
+}
+.sale-head p{
+  margin: 0;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--butter-deep);
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+.sale-head p:empty{ display: none; }              /* chưa có nội dung thì ẩn, không hiện khung rỗng */
+
+/* Section bán chạy: nền trắng để tách khỏi 2 section còn lại */
+.product-section.alt{
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding-top: 2.2rem;
+}
+#hang-moi{ padding-top: 2.2rem; padding-bottom: 1.5rem; }
+
+/* =====================================================
+   NÚT "XEM TẤT CẢ SẢN PHẨM": căn giữa + cách footer
+   ===================================================== */
+.view-all-wrap{
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 4.5rem;                           /* 4.5rem = khoảng cách với footer */
+}
+
+/* ----- Điện thoại / màn hình hẹp ----- */
+@media (max-width: 820px){
+  .hero-login{
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+    min-height: auto;
+    padding: 1.8rem 5vw;
+  }
+  .hero-login-text{ order: -1; }                    /* chữ lên trên, form xuống dưới */
+}
+
+/* =====================================================
+   GIÁ: giá mới (đậm) + giá cũ (gạch ngang) + đơn vị
+   ===================================================== */
+.card-price{
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 .5rem;                                     /* khoảng cách giữa giá mới / giá cũ / đơn vị */
+}
+.card-price .gia-moi{
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--cocoa);
+  margin-left: 0;
+}
+.sale-section .card-price .gia-moi,
+.card-price .gia-moi:has(+ .gia-cu){
+  color: var(--butter-deep);                        /* giá đang giảm: màu cam nổi bật */
+}
+.card-price .gia-cu{
+  font-size: .85rem;
+  font-weight: 500;
+  color: #9a8c78;
+  text-decoration: line-through;
+  margin-left: 0;
+}
+.card-price .gia-donvi{
+  font-size: .78rem;
+  font-weight: 500;
+  color: #9a8c78;
+  margin-left: 0;
+}
+
+/* Avatar tròn thay cho nút Đăng ký */
+.nav-links a.nav-avatar{
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--forest);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--butter);
+}
+.nav-links a.nav-avatar:hover{ background: var(--forest-deep); color: #fff; }
+/* Nút đăng xuất cạnh avatar */
+.nav-links a.nav-logout{
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: .9rem;
+  color: var(--cocoa);
+  transition: background .15s, color .15s;
+}
+.nav-links a.nav-logout:hover{ background: var(--forest); color: #fff; border-color: var(--forest); }
+.nav-links{ align-items: center; }   /* avatar và nút đăng xuất thẳng hàng */
+
+/* ===== Sau khi đăng nhập: ẩn form, hero gọn lại ===== */
+body.da-dang-nhap .login-card{ display: none; }
+
+body.da-dang-nhap .hero-login{
+  grid-template-columns: 1fr;       /* chỉ còn 1 cột chữ */
+  min-height: 560px;                /* ❌ 980px → ✅ 560px: banner vừa màn hình */
+  background-image:
+    linear-gradient(90deg, rgba(32,60,41,.85) 0%, rgba(32,60,41,.45) 50%, rgba(32,60,41,0) 80%),
+    url("https://www.whoa.in/download/cristiano-ronaldo-drinking-milk");
+  background-position: 75% 15%;     /* hạ xuống chút để không cắt mặt */
+}
+body.da-dang-nhap .hero-login-text h1{
+  font-size: clamp(2.2rem, 5vw, 3.4rem);   /* chữ to hơn vì không còn form */
+  max-width: 14ch;
+}
+
+/* ---------- ĐÁNH GIÁ KHÁCH HÀNG ---------- */
+.review-section{
+  padding: 3rem 0 4rem;
+  background: #F3EBDC;
+  border-top: 1px solid #E1D8C4;
+  overflow: hidden;
+}
+.review-section .section-head{
+  text-align: center;
+  padding: 0 6vw;
+  margin-bottom: 2rem;
+}
+.review-section .section-head h2{
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  color: #203C29;
+  margin: 0 0 0.4rem;
+}
+.review-section .section-head p{
+  margin: 0;
+  color: #7a6c5a;
+  font-size: 0.95rem;
+}
+
+.review-marquee{
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.review-track{
+  display: flex;
+  gap: 1.2rem;
+  width: max-content;
+  animation: review-scroll 28s linear infinite;
+}
+.review-marquee:hover .review-track{ animation-play-state: paused; }
+
+@keyframes review-scroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(calc(-50% - 0.6rem)); }
+}
+
+.review-card{
+  flex: 0 0 auto;
+  width: 280px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid #E1D8C4;
+  border-radius: 14px;
+  padding: 1.1rem 1.3rem;
+}
+.review-avatar{
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #2E5339;
+  color: #fff;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.review-name{
+  font-family: 'Fraunces', serif;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #203C29;
+  margin: 0 0 2px;
+}
+.review-stars{
+  color: #E8A33D;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+.review-text{
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #7a6c5a;
+}
+
+@media (max-width: 720px){
+  .review-card{ width: 240px; padding: 0.9rem 1rem; }
+  .review-track{ animation-duration: 22s; }
+}
