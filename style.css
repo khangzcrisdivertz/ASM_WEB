@@ -423,3 +423,8 @@ body.da-dang-nhap .hero-login-text h1{
   .review-card{ width: 240px; padding: 0.9rem 1rem; }
   .review-track{ animation-duration: 22s; }
 }
+.qty-box{ display:flex; align-items:center; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.qty-box button{ width:34px; height:34px; border:none; background:#fff; font-size:1.1rem; cursor:pointer; }
+.qty-box button:hover:not(:disabled){ background:var(--cream-deep); }
+.qty-box button:disabled{ opacity:.4; cursor:not-allowed; }
+.qty-box span{ width:38px; text-align:center; font-weight:600; }
