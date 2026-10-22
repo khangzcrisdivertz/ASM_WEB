@@ -94,5 +94,16 @@ document.getElementById("loc-sua").addEventListener("click",  () => {
   });
   hienThi(ketQua);
 });
+// Sắp xếp theo giá từ thấp đến cao
+document.getElementById("sort-asc").addEventListener("click", () => {
+  // Dùng toán tử spread [...] để copy mảng tránh làm thay đổi mảng gốc
+  let ketQua = [...danhSachSua].sort((a, b) => a.gia - b.gia);
+  hienThi(ketQua);
+});
 
+// Sắp xếp theo giá từ cao đến thấp
+document.getElementById("sort-desc").addEventListener("click", () => {
+  let ketQua = [...danhSachSua].sort((a, b) => b.gia - a.gia);
+  hienThi(ketQua);
+});
 hienThi(danhSachSua);

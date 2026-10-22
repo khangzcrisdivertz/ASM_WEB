@@ -46,8 +46,26 @@ luuCart();
 }
 
 function hienThiCart() {
+
+
   let box = document.getElementById("cart-list");
   if (!box) return; // trang không có giỏ thì thoát
+  if (cart.length === 0) {
+    // In ra câu thông báo và nút bấm Mua ngay
+    box.innerHTML = `
+      <div class="empty-cart">
+        <p>Giỏ hàng của bạn đang trống!</p>
+        <a href="allproducts.html" class="btn-mua-ngay">Mua ngay ở đây</a>
+      </div>
+    `;
+    
+    // Đưa các thẻ tiền về 0 hết để nhìn không bị lỗi
+    document.getElementById("tam-tinh").innerText = "0đ";
+    document.getElementById("phi-ship").innerText = "0đ";
+    document.getElementById("tong-cong").innerText = "0đ";
+    
+    return; // Dừng hàm luôn, không chạy đoạn code vòng lặp phía dưới nữa
+  }
   let html = "";
  let tamTinh = 0;
   let tongSL = 0;

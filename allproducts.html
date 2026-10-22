@@ -371,55 +371,64 @@
     <a href="index.html" class="active">Trang chủ</a>
     <a href="cart.html">Giỏ hàng</a>
     <a href="about.html">Về chúng tôi</a>
+     <a href="allproducts.html">Sản phẩm</a>
     <a href="SignUp.html" id="nav-auth">Đăng ký</a>
     <a href="#" id="nav-logout" class="nav-logout" hidden>Đăng xuất</a> 
   </div>
 </nav>
 
+
     </div>
   </nav>
-  <!-- ================= HERO ================= -->
-  <section class="hero">
+ <section class="hero">
     <div class="hero-text">
       <div class="hero-badge"><span class="dot"></span>Giao trong ngày tại nội thành</div>
       <h1>Sữa tươi chọn lọc, mỗi ngày một ly ngon</h1>
       <p>Tổng hợp các dòng sữa nước, sữa bột phổ biến từ TH true MILK, Cô Gái Hà Lan và nhiều thương hiệu khác — chọn nhanh, so giá dễ dàng.</p>
     </div>
     <div class="hero-visual">
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M38 8H62V22L72 34V88C72 90.2 70.2 92 68 92H32C29.8 92 28 90.2 28 88V34L38 22V8Z" stroke="#2E5339" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M28 46H72" stroke="#2E5339" stroke-width="2.5"/>
-        <path d="M28 46V88C28 90.2 29.8 92 32 92H68C70.2 92 72 90.2 72 88V46" fill="#E8A33D" fill-opacity="0.18"/>
-        <path d="M40 8H60" stroke="#2E5339" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
+      <!-- Thay thế SVG bằng thẻ img -->
+      <img src="Milkmarket.png" alt="MilkMarket">
     </div>
   </section>
 
   <!-- ================= FILTERS (demo giao diện, chưa có chức năng) ================= -->
+ <!-- ================= FILTERS ================= -->
   <section class="filters-section">
     <h2>Lọc sản phẩm</h2>
 
+    <!-- Nhóm 1: Mức giá -->
     <div class="filter-group">
-  <span class="filter-label">Mức giá</span>
-  <div class="pill-row">
-    <button class="pill is-selected" type="button" id="gia-all">Tất cả</button>
-    <button class="pill" type="button" id="gia-duoi30">Dưới 30.000đ</button>
-    <button class="pill" type="button" id="gia-30-60">30.000đ – 60.000đ</button>
-    <button class="pill" type="button" id="gia-tren60">Trên 60.000đ</button>
-  </div>
-</div>
+      <span class="filter-label">Mức giá</span>
+      <div class="pill-row">
+        <button class="pill is-selected" type="button" id="gia-all">Tất cả</button>
+        <button class="pill" type="button" id="gia-duoi30">Dưới 30.000đ</button>
+        <button class="pill" type="button" id="gia-30-60">30.000đ – 60.000đ</button>
+        <button class="pill" type="button" id="gia-tren60">Trên 60.000đ</button>
+      </div>
+    </div> <!-- Thẻ đóng của nhóm Mức giá phải nằm ở đây -->
 
-<div class="filter-group">
-  <span class="filter-label">Hãng sữa</span>
-  <div class="pill-row">
-    <button class="pill is-selected" type="button" id="hang-all">Tất cả</button>
-    <button class="pill" type="button" id="hang-th">TH true MILK</button>
-    <button class="pill" type="button" id="hang-cglh">Cô Gái Hà Lan</button>
-    <button class="pill" type="button" id="hang-vina">Vinamilk</button>
-    <button class="pill" type="button" id="hang-nuti">Nutifood</button>
-    <button class="pill" type="button" id="loc-sua">Dạng lốc sữa</button>
-  </div>
-</div>
+    <!-- Nhóm 2: Sắp xếp (Đã được tách ra riêng biệt) -->
+    <div class="filter-group">
+      <span class="filter-label">Sắp xếp</span>
+      <div class="pill-row">
+        <button class="pill" type="button" id="sort-asc">Giá: Thấp đến cao</button>
+        <button class="pill" type="button" id="sort-desc">Giá: Cao đến thấp</button>
+      </div>
+    </div>
+
+    <!-- Nhóm 3: Hãng sữa -->
+    <div class="filter-group">
+      <span class="filter-label">Hãng sữa</span>
+      <div class="pill-row">
+        <button class="pill is-selected" type="button" id="hang-all">Tất cả</button>
+        <button class="pill" type="button" id="hang-th">TH true MILK</button>
+        <button class="pill" type="button" id="hang-cglh">Cô Gái Hà Lan</button>
+        <button class="pill" type="button" id="hang-vina">Vinamilk</button>
+        <button class="pill" type="button" id="hang-nuti">Nutifood</button>
+        <button class="pill" type="button" id="loc-sua">Dạng lốc sữa</button>
+      </div>
+    </div>
   </section>
 
   <!-- ================= PRODUCT (demo 1 card) ================= -->

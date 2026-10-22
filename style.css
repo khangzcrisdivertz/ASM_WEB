@@ -418,7 +418,39 @@ body.da-dang-nhap .hero-login-text h1{
   font-size: 0.85rem;
   color: #7a6c5a;
 }
+/* ---- CSS CHO GIỎ HÀNG TRỐNG ---- */
+.empty-cart {
+  text-align: center; /* Canh giữa nội dung */
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
 
+.empty-cart p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* Nút mua ngay thiết kế nổi bật */
+.btn-mua-ngay {
+  display: inline-block;
+  background-color: #28a745; /* Màu xanh lá nổi bật (có thể đổi màu tuỳ theme) */
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  text-decoration: none; /* Bỏ gạch chân của thẻ a */
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-mua-ngay:hover {
+  background-color: #218838; /* Di chuột vào sẽ tối màu hơn 1 tí */
+  color: white;
+}
 @media (max-width: 720px){
   .review-card{ width: 240px; padding: 0.9rem 1rem; }
   .review-track{ animation-duration: 22s; }
