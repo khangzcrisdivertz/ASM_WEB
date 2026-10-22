@@ -232,9 +232,9 @@
   </footer>
 
 <script>
-const sigupform = document.getElementById('signup-form');
+const singupform = document.getElementById('signup-form');
 const thongBao= document.getElementById("thong-bao-dang-ky")
-sigupform.addEventListener('submit',(e) =>{
+singupform.addEventListener('submit',(e) =>{
   e.preventDefault(); //chặn form tải lại trang
 
 
@@ -282,13 +282,13 @@ localStorage.setItem('email', email);
 localStorage.setItem('password', matKhau );
 thongBao.style.color = "#2E5339";
   thongBao.textContent = "Đăng ký thành công!";
-  signupForm.reset();
 
 
-localStorage.setItem("dangNhap", "true"); // đánh dấu đã đăng nhập
+
+// localStorage.setItem("dangNhap", "true"); // đánh dấu đã đăng nhập
   setTimeout(() => {
-    window.location.href = "index.html";
-  }, 1500);
+    window.location.href = "Login.html";
+  }, 1000);
 
 })
 
